@@ -3,7 +3,7 @@ on:
   label:
     types:
       - created
-  issue:
+  issues:
     types:
       - opened
 
