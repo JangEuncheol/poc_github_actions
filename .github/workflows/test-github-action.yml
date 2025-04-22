@@ -13,3 +13,9 @@ jobs:
     steps:
       - name: Test steps 1
         run: echo "This is Test STEPS 1!"
+
+  job_name_test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: job_name_test
+        run: echo "This is job_name_test!"
