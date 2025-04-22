@@ -1,0 +1,14 @@
+name: learn-github-actions
+on:
+  label:
+    types:
+      - created
+  issue:
+    types:
+      - opened
+
+jobs:
+  runs-on: ubuntu-latest
+  steps:
+    - name: Test steps 1
+      run: echo "This is Test STEPS 1!"
