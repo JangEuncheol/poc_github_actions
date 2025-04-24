@@ -31,4 +31,4 @@ jobs:
           distribution: 'temurin'
 
       - name: Grant execute permission for gradlew
-        run: ls -al ./backend
+        run: ls -al ./backend; chmod 777 ./backend/gradlew; ls -al ./backend
