@@ -35,7 +35,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Grant execute permission for gradlew
-        run: ls -al;
+        run: ls -al ./buildasdsad;
 
 #      - name: Build TEST
 #        run: ./gradlew bootJar
