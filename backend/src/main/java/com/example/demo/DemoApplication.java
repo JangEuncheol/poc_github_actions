@@ -11,4 +11,3 @@ public class DemoApplication {
 	}
 	// TEST2
 }
-"✅

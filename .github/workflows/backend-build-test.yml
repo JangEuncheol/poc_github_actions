@@ -38,7 +38,7 @@ jobs:
         run: ls -al; chmod +x ./gradlew; ls -al
 
       - name: Build TEST
-        run: ./gradlew build
+        run: ./gradlew bootJar
 
       - name: Check Build result
-        run: ls -al ./build/lib
+        run: ls -al ./build/libs
