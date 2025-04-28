@@ -21,7 +21,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, Linux, X64]
 
     defaults:
       run:
@@ -35,47 +35,47 @@ jobs:
           distribution: 'temurin'
 
       - name: Grant execute permission for gradlew
-        run: ls -al; chmod +x ./gradlew; ls -al
+        run: ls -al;
 
-      - name: Build TEST
-        run: ./gradlew bootJar
+#      - name: Build TEST
+#        run: ./gradlew bootJar
 
-      - name: 🧠 Cache node_modules + install-state
-        uses: actions/cache@v3
-        with:
-          path: |
-            node_modules
-            .yarn/install-state.gz
-          key: ${{ runner.os }}-yarn-nodemodules-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-nodemodules-
-
-      - name: Check Build result
-        run: ls -al ./build/libs
-
-      - name: Upload to server
-        uses: appleboy/scp-action@master
-        with:
-         host: ${{ secrets.SERVER_HOST }}
-         username: ${{ secrets.SERVER_USER }}
-         key: ${{ secrets.SERVER_SSH_KEY }}
-         source: "frontend_output.tar.gz"
-         target: "/tmp"
-
-      - name: SSH and deploy
-        uses: appleboy/ssh-action@master
-        with:
-         host: ${{ secrets.SERVER_HOST }}
-         username: ${{ secrets.SERVER_USER }}
-         key: ${{ secrets.SERVER_SSH_KEY }}
-         script: |
-           echo "🧹 기존 프론트 디렉토리 제거..."
-           rm -rf /home/ec2-user/medizen/frontend/build_resource/*
-           echo "📦 빌드 결과 압축 해제..."
-           tar xzf /tmp/frontend_output.tar.gz -C /home/ec2-user/medizen/frontend/build_resource
-        
-           echo "🔁 프론트 컨테이너 재시작..."
-           docker compose -f /home/ec2-user/medizen/docker/docker-compose.yaml restart medizen_frontend_dev
+#      - name: 🧠 Cache node_modules + install-state
+#        uses: actions/cache@v3
+#        with:
+#          path: |
+#            node_modules
+#            .yarn/install-state.gz
+#          key: ${{ runner.os }}-yarn-nodemodules-${{ hashFiles('**/yarn.lock') }}
+#          restore-keys: |
+#            ${{ runner.os }}-yarn-nodemodules-
+#
+#      - name: Check Build result
+#        run: ls -al ./build/libs
+#
+#      - name: Upload to server
+#        uses: appleboy/scp-action@master
+#        with:
+#         host: ${{ secrets.SERVER_HOST }}
+#         username: ${{ secrets.SERVER_USER }}
+#         key: ${{ secrets.SERVER_SSH_KEY }}
+#         source: "frontend_output.tar.gz"
+#         target: "/tmp"
+#
+#      - name: SSH and deploy
+#        uses: appleboy/ssh-action@master
+#        with:
+#         host: ${{ secrets.SERVER_HOST }}
+#         username: ${{ secrets.SERVER_USER }}
+#         key: ${{ secrets.SERVER_SSH_KEY }}
+#         script: |
+#           echo "🧹 기존 프론트 디렉토리 제거..."
+#           rm -rf /home/ec2-user/medizen/frontend/build_resource/*
+#           echo "📦 빌드 결과 압축 해제..."
+#           tar xzf /tmp/frontend_output.tar.gz -C /home/ec2-user/medizen/frontend/build_resource
+#
+#           echo "🔁 프론트 컨테이너 재시작..."
+#           docker compose -f /home/ec2-user/medizen/docker/docker-compose.yaml restart medizen_frontend_dev
 
 
 
